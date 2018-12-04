@@ -15,11 +15,11 @@ namespace AdventOfCode2018
             s.Stop();
             Console.WriteLine(s.Elapsed.ToString());
             
-//            s = new Stopwatch();
-//            s.Start();
-//            solver.SolvePartTwo();
-//            s.Stop();
-//            Console.WriteLine(s.Elapsed.ToString());
+            s = new Stopwatch();
+            s.Start();
+            solver.SolvePartTwo();
+            s.Stop();
+            Console.WriteLine(s.Elapsed.ToString());
         }
     }
 }

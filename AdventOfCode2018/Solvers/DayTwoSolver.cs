@@ -75,7 +75,47 @@ namespace AdventOfCode2018.Solvers
 
         public void SolvePartTwo()
         {
-            throw new NotImplementedException();
+            var readBlock = CommonBlockFactory.GetLinesFromTextFile();
+            var wordPairBuffer = new BufferBlock<Tuple<string, string>>(CommonBlockFactory.UnorderedBlockOptions);
+            var pairProducer = new ActionBlock<string[]>(s =>
+            {
+                for (var i = 0; i < s.Length / 2; i++)
+                {
+                    for (var j = s.Length-1; j > s.Length / 2; j--)
+                    {
+                        wordPairBuffer.Post(new Tuple<string, string>(s[i], s[j]));
+                    }
+                }
+            }, CommonBlockFactory.UnorderedBlockOptions);
+            var wordCompareBlock = new ActionBlock<Tuple<string, string>>(tuple =>
+            {
+                var misses = 0;
+                var wrongIndex = 0;
+                for (var i = 0; i < tuple.Item1.Length; i++)
+                {
+                    if (misses > 1)
+                    {
+                        break;
+                    }
+
+                    if (tuple.Item1[i] == tuple.Item2[i]) continue;
+                    wrongIndex = i;
+                    misses++;
+                }
+
+                if (misses == 1)
+                {
+                    pairProducer.Complete();
+                    wordPairBuffer.Complete();
+                    Console.WriteLine($"{tuple.Item1} | {tuple.Item2} | {tuple.Item1.Remove(wrongIndex, 1)}");
+                }
+            }, CommonBlockFactory.UnorderedBlockOptions);
+            var linkOptions = new DataflowLinkOptions {PropagateCompletion = true};
+            readBlock.LinkTo(pairProducer, linkOptions);
+            wordPairBuffer.LinkTo(wordCompareBlock, linkOptions);
+            readBlock.Post(SharedFunctions.GetCurrentWorkingDirectory("InputFiles\\day2\\partOne.txt"));
+            readBlock.Complete();
+            wordCompareBlock.Completion.Wait();
         }
     }
 }
