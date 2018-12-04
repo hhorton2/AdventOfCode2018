@@ -8,18 +8,18 @@ namespace AdventOfCode2018
     {
         static void Main(string[] args)
         {
-            var dayOne = new DayOneSolver();
+            var solver = new DayTwoSolver();
             var s = new Stopwatch();
             s.Start();
-            dayOne.SolvePartOne();
+            solver.SolvePartOne();
             s.Stop();
             Console.WriteLine(s.Elapsed.ToString());
             
-            s = new Stopwatch();
-            s.Start();
-            dayOne.SolvePartTwo();
-            s.Stop();
-            Console.WriteLine(s.Elapsed.ToString());
+//            s = new Stopwatch();
+//            s.Start();
+//            solver.SolvePartTwo();
+//            s.Stop();
+//            Console.WriteLine(s.Elapsed.ToString());
         }
     }
 }

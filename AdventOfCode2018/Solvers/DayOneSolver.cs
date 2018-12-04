@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using AdventOfCode2018.Blocks;
+using AdventOfCode2018.Helpers;
 using AdventOfCode2018.Interfaces;
 
 namespace AdventOfCode2018.Solvers
@@ -31,7 +32,7 @@ namespace AdventOfCode2018.Solvers
             parseBuffer.LinkTo(parseBlock, linkOptions);
             parseBlock.LinkTo(sumBlock, linkOptions);
             readBlock.Post(
-                $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\\InputFiles\\day1\\partOne.txt");
+                SharedFunctions.GetCurrentWorkingDirectory("InputFiles\\day1\\partOne.txt"));
             readBlock.Complete();
             sumBlock.Completion.Wait();
             Console.WriteLine(sum);
@@ -73,7 +74,7 @@ namespace AdventOfCode2018.Solvers
             parseBlock.LinkTo(sumBlock);
             sumBuffer.LinkTo(sumBlock, linkOptions);
             readBlock.Post(
-                $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\\InputFiles\\day1\\partOne.txt");
+                SharedFunctions.GetCurrentWorkingDirectory("InputFiles\\day1\\partOne.txt"));
             readBlock.Complete();
             sumBlock.Completion.Wait();
             Console.WriteLine(sum);

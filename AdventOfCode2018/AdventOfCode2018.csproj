@@ -17,4 +17,14 @@
         </Content>
     </ItemGroup>
 
+    <ItemGroup>
+        <Content Include="InputFiles\day2\partOne.txt">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="InputFiles\day2"/>
+    </ItemGroup>
+
 </Project>
